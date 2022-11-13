@@ -1,0 +1,15 @@
+[features]
+seeds = false
+skip-lint = false
+[programs.localnet]
+tic_tac_toe = "4Y5g1y7JXb2hpHDWsGQTAhHKbSJtR95W6QGzoXgESN8U"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+cluster = "localnet"
+wallet = "/Users/sasha/.config/solana/id.json"
+
+[scripts]
+test = "yarn run mocha -t 1000000 tests/"
