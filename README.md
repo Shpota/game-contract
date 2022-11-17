@@ -1,8 +1,13 @@
 # Tic Tac Toe
-Tic Tac Toe Solana Program
+Implemenattion of a Tic-Tac-Toe Game on Solana
 
-## Deploy
-Build:
+You can play the game [here](https://shpota.com/game/). Make sure you have Phantom
+installed and you are using the Devnet.
+
+## How to use
+
+#### Build:
+
 ```sh
 solana config set --url devnet
 solana config get
@@ -19,7 +24,9 @@ Build again:
 ```sh
 anchor build
 ```
-Deploy:
+
+#### Deploy:
+
 ```shell
  anchor deploy --provider.cluster devnet
 ```

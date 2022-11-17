@@ -1,5 +1,6 @@
 use anchor_lang::prelude::*;
 
+
 #[account]
 pub struct Game {
     pub state: [i8; 9],

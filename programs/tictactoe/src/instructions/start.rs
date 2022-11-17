@@ -1,6 +1,7 @@
 use anchor_lang::prelude::*;
 use crate::account::Game;
 
+
 #[derive(Accounts)]
 pub struct StartGame<'info> {
     // Space: 8 (anchor internal state) + 9 (array of 9 i8 values) + 4 * 32 (4 public keys)

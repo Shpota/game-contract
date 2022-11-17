@@ -29,19 +29,11 @@ describe("TicTacToe", () => {
         return player;
     }
 
-    const firstPlayerSetValue = async (game, index) => {
-        await program.methods.setValue(index).accounts({
-            game: game.publicKey,
-            user: provider.wallet.publicKey,
-        }).rpc();
-    }
+    const firstPlayerSetValue = async (game, index) => await program.methods.setValue(index)
+            .accounts({ game: game.publicKey, user: provider.wallet.publicKey }).rpc()
 
-    const secondPlayerSetValue = async (game, secondPlayer, index) => {
-        await program.methods.setValue(index).accounts({
-            game: game.publicKey,
-            user: secondPlayer.publicKey,
-        }).signers([secondPlayer]).rpc();
-    }
+    const secondPlayerSetValue = async (game, secondPlayer, index) => await program.methods.setValue(index)
+            .accounts({ game: game.publicKey, user: secondPlayer.publicKey }).signers([secondPlayer]).rpc()
 
     it("Start game", async () => {
         const game = await startGame()
@@ -63,7 +55,6 @@ describe("TicTacToe", () => {
         expect(account.firstPlayer.toBase58()).to.equal(provider.wallet.publicKey.toBase58());
         expect(account.secondPlayer.toBase58()).to.equal(player.publicKey.toBase58())
     });
-
 
     it("Should fail to join when second player is the same as first", async () => {
         const game = await startGame()

@@ -1,7 +1,8 @@
 use anchor_lang::prelude::*;
 use crate::account::Game;
 use crate::errors::TicTacToeError;
-    
+
+
 // -1 represents an unset value, 0 represents "o", and 1 represents "x"
 pub fn set_value(ctx: Context<SetValue>, index: u8) -> Result<()> {
     let game = &ctx.accounts.game;
