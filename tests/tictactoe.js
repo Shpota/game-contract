@@ -3,7 +3,6 @@ const assert = require('chai').assert
 const expect = require('chai').expect
 
 describe("TicTacToe", () => {
-    // Configure the client to use the local cluster.
     let provider = anchor.AnchorProvider.env();
     anchor.setProvider(provider);
     const program = anchor.workspace.TicTacToe;
@@ -11,48 +10,37 @@ describe("TicTacToe", () => {
 
     const startGame = async () => {
         const game = anchor.web3.Keypair.generate();
-        let tx = await program.rpc.startGame({
-            accounts: {
-                game: game.publicKey,
-                user: provider.wallet.publicKey,
-                systemProgram: SystemProgram.programId,
-            },
-            signers: [game],
-        });
+        let tx = await program.methods.startGame().accounts({
+            game: game.publicKey,
+            user: provider.wallet.publicKey,
+            systemProgram: SystemProgram.programId,
+        }).signers([game]).rpc();
         assert.ok(tx);
         return game
     }
 
     const joinGame = async (game) => {
         const player = anchor.web3.Keypair.generate();
-        let joinGameTx = await program.rpc.joinGame({
-            accounts: {
-                game: game.publicKey,
-                user: player.publicKey,
-            },
-            signers: [player],
-        });
+        let joinGameTx = await program.methods.joinGame().accounts({
+            game: game.publicKey,
+            user: player.publicKey,
+        }).signers([player]).rpc();
         assert.ok(joinGameTx);
         return player;
     }
 
     const firstPlayerSetValue = async (game, index) => {
-        await program.rpc.setValue(index, {
-            accounts: {
-                game: game.publicKey,
-                user: provider.wallet.publicKey,
-            },
-        });
+        await program.methods.setValue(index).accounts({
+            game: game.publicKey,
+            user: provider.wallet.publicKey,
+        }).rpc();
     }
 
     const secondPlayerSetValue = async (game, secondPlayer, index) => {
-        await program.rpc.setValue(index, {
-            accounts: {
-                game: game.publicKey,
-                user: secondPlayer.publicKey,
-            },
-            signers: [secondPlayer],
-        });
+        await program.methods.setValue(index).accounts({
+            game: game.publicKey,
+            user: secondPlayer.publicKey,
+        }).signers([secondPlayer]).rpc();
     }
 
     it("Start game", async () => {
@@ -82,12 +70,7 @@ describe("TicTacToe", () => {
         const firstPlayer = provider.wallet.publicKey;
 
         try {
-            await program.rpc.joinGame({
-                accounts: {
-                    game: game.publicKey,
-                    user: firstPlayer,
-                },
-            });
+            await program.methods.joinGame().accounts({ game: game.publicKey, user: firstPlayer }).rpc()
             assert.fail("Joining with the same player public key is supposed to fail");
         } catch (e) {
             assert(e.message.includes("Second Player must be different from the first player"))
