@@ -2,7 +2,9 @@
 Implemenattion of a Tic-Tac-Toe Game on Solana
 
 You can play the game [here](https://shpota.com/game/). Make sure you have Phantom
-installed and you are using the Devnet.
+installed and you are using Solana Devnet.
+
+The UI repository can be found [here](https://github.com/Shpota/game).
 
 ## How to use
 
